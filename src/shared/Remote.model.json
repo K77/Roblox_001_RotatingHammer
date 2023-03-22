@@ -1,0 +1,9 @@
+{
+    "ClassName": "Folder",
+    "Children": [
+        {"Name": "s2c_money_change","ClassName": "RemoteEvent"},
+        {"Name": "SendMoney","ClassName": "RemoteEvent"},
+        {"Name": "s2c_bag_change","ClassName": "RemoteEvent"},
+        {"Name": "c2s_touch_ring","ClassName": "RemoteEvent"}
+    ]
+  }
