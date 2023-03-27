@@ -1,0 +1,3 @@
+[submodule "src/shared/conf"]
+	path = src/shared/conf
+	url = git@github.com:K77/Roblox_1_conf.git
