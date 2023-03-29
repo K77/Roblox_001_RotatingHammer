@@ -21,5 +21,5 @@ local a2 = newClass()
 
 print(a1.func == a2.func)
 
-print(game:GetService("Players"):WaitForChild("LocalPlayer"):WaitForChild("Character"))
+-- print(game:GetService("Players"):WaitForChild("LocalPlayer"):WaitForChild("Character"))
 -- print(game:GetService("Players").LocalPlayer.Character.Humanoid)
