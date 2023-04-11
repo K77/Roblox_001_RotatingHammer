@@ -9,11 +9,10 @@ local RunService = game:GetService("RunService")
 --     if player.Character  and player.boolInbattle.Value then
 --         local newCF = CFrame.new(player.Character:GetPivot().Position) 
 -- 		local rot = player.Character:GetPivot().Rotation * CFrame.Angles(0,ConfServerGlobal.rotateSpeed,0)
---         -- task.wait()
+--         task.wait()
 --         player.Character:PivotTo(newCF*rot)
 --     end
 --     end
-	
 -- end)
 
 -- local Players = game:GetService("Players")
@@ -39,7 +38,7 @@ function module.removeFromServer(player:Player)
 end
 function module.goInBattle(player:Player)
     player.boolInbattle.Value = true
-    player.Character.Humanoid.JumpPower = 7
+    player.Character.Humanoid.JumpPower = 11
     player.Character.Humanoid.Jump = true
     player.Character.Humanoid.AutoRotate = false
      local character = player.Character
@@ -58,7 +57,6 @@ function module.goInBattle(player:Player)
 
         s_util_player.ChangePoseRot(player)
 
-        wait(1)
         
         -- player.Character.Humanoid.PlatformStand = true
         -- wait()
@@ -66,11 +64,11 @@ function module.goInBattle(player:Player)
 
 
     -- 13019768278
-    local att = Instance.new("Attachment",hrp)
-    local rot = Instance.new("AngularVelocity",hrp)
-    rot.Attachment0 = att
-    rot.AngularVelocity = Vector3.new(1,1,1)
-    rot.RelativeTo = Enum.ActuatorRelativeTo.Attachment0
+    -- local att = Instance.new("Attachment",hrp)
+    -- local rot = Instance.new("AngularVelocity",hrp)
+    -- rot.Attachment0 = att
+    -- rot.AngularVelocity = Vector3.new(1,1,1)
+    -- rot.RelativeTo = Enum.ActuatorRelativeTo.Attachment0
 end
 
 function module.goOutBattle(player:Player)
