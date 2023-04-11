@@ -31,7 +31,7 @@ run.RenderStepped:Connect(function(deltaTime)
     local boolV = player:WaitForChild("boolInbattle")
     if boolV.Value then
         local newCF = CFrame.new(player.Character:GetPivot().Position) 
-		local rot = player.Character:GetPivot().Rotation * CFrame.Angles(0,0.01,0)
+		local rot = player.Character:GetPivot().Rotation * CFrame.Angles(0,0.03,0)
         player.Character:PivotTo(newCF*rot)
     end
     
