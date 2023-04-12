@@ -2,7 +2,7 @@ _G.s_mgr_prompt = require(script.Parent.s_mgr_prompt)
 _G.s_mgr_player = require(script.Parent.s_mgr_player)
 _G.s_mgr_battleTools = require(script.Parent.s_mgr_battleTools)
 _G.ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
-_G.util_random= require(game:GetService("ReplicatedStorage").util_random)
+_G.util_random= require(game:GetService("ReplicatedStorage")._RojoShare.util_random)
 
 print("server module inited")
 local RunService = game:GetService("RunService")

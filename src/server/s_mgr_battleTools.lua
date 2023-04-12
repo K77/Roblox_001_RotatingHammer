@@ -36,7 +36,7 @@ RunService.Stepped:Connect(function(time, deltaTime)
     local battleCount = 0
     for index, value in players do
         if value.boolInbattle then
-            battleCount++
+            battleCount = battleCount+1
         end
     end
     if #arr<=10 then

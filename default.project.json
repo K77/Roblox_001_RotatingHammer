@@ -4,7 +4,9 @@
     "$className": "DataModel",
 
     "ReplicatedStorage": {
+      "_RojoShare": {
         "$path": "src/shared"
+      }
     },
 
     "ServerScriptService": {
