@@ -1,7 +1,7 @@
 local module = {}
 local Players = game:GetService("Players")
 local s_util_player = require(script.Parent.s_util_player)
-local ConfServerGlobal= require(game:GetService("ServerStorage").conf.ConfServerGlobal)
+local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
 local RunService = game:GetService("RunService")
 
 -- RunService.Stepped:Connect(function(_time,delta)
@@ -114,7 +114,7 @@ function module.goInBattle(player:Player)
 		weld.Part1 = character:WaitForChild("HumanoidRootPart")
         sword.Name = "Weapon"
 
-        s_util_player.ChangePoseRot(player)
+        s_util_player.ChangeAnimationRot(player)
 
             sword.PrimaryPart.Touched:Connect(function(otherPart)
             local humanoid = otherPart.Parent:FindFirstChild("Humanoid") :: Humanoid

@@ -10,7 +10,7 @@ local rotAnimation = "rbxassetid://13019768278"
 -- local rotAnimation = "rbxassetid://13019768278"
 
 
-function module.ChangePoseRot(player : Player)
+function module.ChangeAnimationRot(player : Player)
     local character = player.Character
     local humanoid = character:WaitForChild("Humanoid") :: Humanoid
 	humanoid.WalkSpeed = 6

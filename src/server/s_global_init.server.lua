@@ -1,9 +1,12 @@
-local s_mgr_prompt = require(script.Parent.s_mgr_prompt)
-local s_mgr_player = require(script.Parent.s_mgr_player)
+_G.s_mgr_prompt = require(script.Parent.s_mgr_prompt)
+_G.s_mgr_player = require(script.Parent.s_mgr_player)
+_G.s_mgr_battleTools = require(script.Parent.s_mgr_battleTools)
+_G.ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
+_G.util_random= require(game:GetService("ReplicatedStorage").util_random)
+
 print("server module inited")
 local RunService = game:GetService("RunService")
 Players = game:GetService("Players")
-local ConfServerGlobal= require(game:GetService("ServerStorage").conf.ConfServerGlobal)
 
 
 local clickDetector = workspace.FightZone.VillaStatue.Union.ClickDetector
