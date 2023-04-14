@@ -1,7 +1,7 @@
 local module = {}
 local ProximityPromptService = game:GetService("ProximityPromptService")
 local ServerScriptService = game:GetService("ServerScriptService")
-local s_mgr_player = require(script.Parent.s_mgr_player)
+local s_mgr_player = require(script.Parent.s_player_status)
 
 -- Detect when prompt is triggered
 local function onPromptTriggered(promptObject, player:Player)

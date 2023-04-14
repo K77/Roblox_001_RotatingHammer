@@ -1,6 +1,9 @@
 local module = {}
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
+
+
 
 local toolRotate = workspace.BattleToolsTmp.rotate
 local toolLife = workspace.BattleToolsTmp.life
@@ -13,11 +16,19 @@ local function eatOneTool(player:Player,tool:Model)
     local humanoid = player.Character.Humanoid
     if tool.Name == "rotate" then
         player.countRotate.Value = player.countRotate.Value +1
+        if player.countRotate.Value > ConfServerGlobal.rotateToolMax then
+            player.countRotate.Value = ConfServerGlobal.rotateToolMax
+        end
+        -- humanoid.WalkSpeed = ConfServerGlobal.moveSpeed*(1+player.countShoe.Value*ConfServerGlobal.moveToolAdd)
     elseif  tool.Name == "life" then
+        humanoid.Health = humanoid.Health+1
         -- player.countLife.Value = player.countLife.Value +1
     elseif  tool.Name == "move" then
         player.countShoe.Value = player.countShoe.Value +1
-        humanoid.WalkSpeed = 6*(1+player.countShoe.Value*02)
+        if player.countShoe.Value > ConfServerGlobal.moveToolMax then
+            player.countShoe.Value = ConfServerGlobal.moveToolMax
+        end
+        humanoid.WalkSpeed = ConfServerGlobal.moveSpeed*(1+player.countShoe.Value*ConfServerGlobal.moveToolAdd)
     elseif  tool.Name == "weapon" then
         player.countWeapon.Value = player.countWeapon.Value +1
     end
@@ -46,6 +57,7 @@ end
 
 local timePass = 0
 local timeInterval = 1
+local maxTool = 5
 RunService.Stepped:Connect(function(time, deltaTime)
     local arr = toolRoot:GetChildren()
     local players = Players:GetPlayers()
@@ -55,7 +67,7 @@ RunService.Stepped:Connect(function(time, deltaTime)
     --         battleCount = battleCount+1
     --     end
     -- end
-    if #arr<=4 then
+    if #arr<=(3+maxTool) then
         timePass+=deltaTime
         if timePass >= timeInterval then
             timePass -= timeInterval

@@ -1,6 +1,6 @@
 local Players = game:GetService("Players")
 local run = game:GetService("RunService")
-_G.ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
+local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
 
 _G.EnumBattleStatus = {
 	none = 0,
@@ -18,7 +18,7 @@ run.RenderStepped:Connect(function(deltaTime)
         local rotate = player:WaitForChild("countRotate").Value
         local newCF = CFrame.new(player.Character:GetPivot().Position) 
 
-		local rot = player.Character:GetPivot().Rotation * CFrame.Angles(0,0.03*(rotate+1),0)
+		local rot = player.Character:GetPivot().Rotation * CFrame.Angles(0,ConfServerGlobal.rotateSpeed*(rotate+1),0)
         player.Character:PivotTo(newCF*rot)
     end
 end)

@@ -51,7 +51,10 @@ function module.goInBattle(player:Player)
     player.Character.Humanoid.AutoRotate = false
     local character = player.Character
     character:PivotTo(workspace.FightZone.Center:GetPivot())
-    character.Humanoid.WalkSpeed = 6
+    character.Humanoid.WalkSpeed = ConfServerGlobal.moveSpeed
+    character.Humanoid.MaxHealth = ConfServerGlobal.startHealth
+    character.Humanoid.Health = ConfServerGlobal.startHealth
+    character.Humanoid.HealthDisplayType = Enum.HumanoidHealthDisplayType.AlwaysOn
 
     local hrp = character:WaitForChild("HumanoidRootPart")
         local sword = workspace.FightZone.Model:Clone() :: Model -- game:GetService("Workspace").iron_sword:Clone()

@@ -1,4 +1,5 @@
 local module = {}
+local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
 
 local rotAnimation = "rbxassetid://13019768278"
 -- local runAnimation = "rbxassetid://13019768278"
@@ -46,7 +47,7 @@ function module.knockback(pchar,echar)
 
 			hurting[eHrp] = true
 			echar.Humanoid.PlatformStand = true
-            echar.Humanoid:TakeDamage(1000)
+            echar.Humanoid:TakeDamage(1)
 			local dir = (eHrp.Position -pHrp.Position).Unit
 			local att = Instance.new("Attachment",eHrp)
 			local force = Instance.new("VectorForce",eHrp)
