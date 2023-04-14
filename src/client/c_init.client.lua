@@ -1,6 +1,7 @@
 local Players = game:GetService("Players")
 local run = game:GetService("RunService")
 local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
+local c_prompt = require(script.Parent:WaitForChild("c_prompt"))
 
 _G.EnumBattleStatus = {
 	none = 0,

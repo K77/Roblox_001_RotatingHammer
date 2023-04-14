@@ -1,8 +1,11 @@
+_G.ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
+_G.util_random= require(game:GetService("ReplicatedStorage")._RojoShare.util_random)
+
 _G.s_mgr_prompt = require(script.Parent.s_mgr_prompt)
 _G.s_mgr_player = require(script.Parent.s_player_status)
 _G.s_mgr_battleTools = require(script.Parent.s_mgr_battleTools)
-_G.ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
-_G.util_random= require(game:GetService("ReplicatedStorage")._RojoShare.util_random)
+_G.s_robuk = require(script.Parent.s_robuk)
+
 
 
 _G.EnumBattleStatus = {
