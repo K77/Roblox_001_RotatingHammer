@@ -19,6 +19,7 @@ local rotAnimation = "rbxassetid://13019768278"
 local battleStatus = Players.LocalPlayer:WaitForChild("battleStatus") :: IntValue
 battleStatus.Changed:Connect(function(value)
     if value == _G.EnumBattleStatus.inBattle then
+        local player = Players.LocalPlayer
         local character = player.Character
         local humanoid = character:WaitForChild("Humanoid") :: Humanoid
         local animateScript = character:WaitForChild("Animate")
