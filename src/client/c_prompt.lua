@@ -1,16 +1,21 @@
 local module = {}
 local ProximityPromptService = game:GetService("ProximityPromptService")
-local ui_weapon = require(script.Parent.UI.ui_weapon)
 
 -- Detect when prompt is triggered
-local function onPromptTriggered(promptObject, player:Player)
-    print("onPromptTriggered")
-	ui_weapon.Show(true)
+local function onPromptTriggered(promptObject:ProximityPrompt, player:Player)
+    if promptObject.Name == "PromptWeapon" then
+        local ui_weapon = require(script.Parent.UI.ui_weapon)
+        ui_weapon.Show(true,promptObject:GetAttribute("itemId"))
+        print("onPromptTriggered",promptObject:GetAttribute("itemId"))
+    end
 end
 
 -- Detect when prompt hold begins
-local function onPromptHoldBegan(promptObject, player)
-
+local function onPromptHidden(promptObject, player)
+    if promptObject.Name == "PromptWeapon" then
+        local ui_weapon = require(script.Parent.UI.ui_weapon)
+        ui_weapon.Show(false)
+    end
 end
 
 -- Detect when prompt hold ends
@@ -21,6 +26,7 @@ end
 -- Connect prompt events to handling functions
 -- ProximityPromptService.PromptTriggered:Connect(onPromptTriggered)
 ProximityPromptService.PromptShown:Connect(onPromptTriggered)
-ProximityPromptService.PromptButtonHoldBegan:Connect(onPromptHoldBegan)
-ProximityPromptService.PromptButtonHoldEnded:Connect(onPromptHoldEnded)
+ProximityPromptService.PromptHidden:Connect(onPromptHidden)
+-- ProximityPromptService.PromptButtonHoldBegan:Connect(onPromptHoldBegan)
+-- ProximityPromptService.PromptButtonHoldEnded:Connect(onPromptHoldEnded)
 return module

@@ -5,6 +5,7 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local DataStoreService = game:GetService("DataStoreService")
 
 local Players = game:GetService("Players")
+local s_data_bag = require(script.Parent.s_data_bag)
 
 
 -- Data store for tracking purchases that were successfully processed
@@ -122,11 +123,13 @@ local function processReceipt(receiptInfo)
 			end
 
 			-- player.Money.Value = player.Money.Value+100
-			print("receiptInfo.ProductId: ",receiptInfo.ProductId)
-			local handler = productFunctions[receiptInfo.ProductId]
+			print("receiptInfo.ProductId: ",receiptInfo.ProductId,type(receiptInfo.ProductId))
+
+			s_data_bag.changeItemCount(player, receiptInfo.ProductId)
+			-- local handler = productFunctions[receiptInfo.ProductId]
 
 
-			local success, result = pcall(handler, receiptInfo, player)
+			-- local success, result = pcall(handler, receiptInfo, player)
 
 			-- If granting the product failed, do NOT record the purchase in datastores.
 

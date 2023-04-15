@@ -43,7 +43,7 @@ local function creatOneTool()
     local tmp : Model = arrToolTmp[ind]:Clone()
     tmp.Parent = toolRoot
     tmp:PivotTo(CFrame.new(posX,posY,posZ))
-
+    tmp.PrimaryPart.Transparency = 0
     tmp.PrimaryPart.Touched:Connect(function(otherPart)
         local humanoid = otherPart.Parent:FindFirstChild("Humanoid") :: Humanoid
         if humanoid then

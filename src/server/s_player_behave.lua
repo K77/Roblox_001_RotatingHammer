@@ -12,22 +12,44 @@ local rotAnimation = "rbxassetid://13019768278"
 
 
 function module.ChangeAnimationRot(player : Player)
-    local character = player.Character
-    local humanoid = character:WaitForChild("Humanoid") :: Humanoid
-	local animateScript = character:WaitForChild("Animate")
+    -- local character = player.Character
+    -- local humanoid = character:WaitForChild("Humanoid") :: Humanoid
+	-- local animateScript = character:WaitForChild("Animate")
+	-- animateScript.Enabled = false
 
-	animateScript.run.RunAnim.AnimationId = rotAnimation
-	animateScript.walk.WalkAnim.AnimationId = rotAnimation
-	animateScript.idle.Animation1.AnimationId = rotAnimation
-	animateScript.idle.Animation2.AnimationId = rotAnimation
-    animateScript.jump.JumpAnim.AnimationId = rotAnimation
+	-- local animator = humanoid:WaitForChild("Animator")
+	-- local animTracks = animator:GetPlayingAnimationTracks()
+
+	-- for i,track in ipairs(animTracks) do
+	-- 	track = track ::AnimationTrack
+	-- 	print(track.Animation.AnimationId)
+	-- 	track:AdjustWeight(0,0)
+	-- 	track:Stop(0)
+	-- 	track.Animation:Destroy()
+	-- 	track:Destroy()
+	-- end
+	
+	-- local kickAnimation = Instance.new("Animation",workspace)
+	-- kickAnimation.AnimationId = rotAnimation
+	-- local kickAnimationTrack = animator:LoadAnimation(kickAnimation)
+	-- kickAnimationTrack:Play(0,10)
+	-- animTracks = animator:GetPlayingAnimationTracks()
+
+	-- for i,track in ipairs(animTracks) do
+	-- 	print(track.Animation.AnimationId)
+	-- end
+
+	-- animateScript.run.RunAnim.AnimationId = rotAnimation
+	-- animateScript.walk.WalkAnim.AnimationId = rotAnimation
+	-- animateScript.idle.Animation1.AnimationId = rotAnimation
+	-- animateScript.idle.Animation2.AnimationId = rotAnimation
+    -- animateScript.jump.JumpAnim.AnimationId = rotAnimation
 end
 
 function module.resetAnimation(player : Player)
     local character = player.Character
     local humanoid = character:WaitForChild("Humanoid") :: Humanoid
 	humanoid.WalkSpeed = 6
-
 
 	local animateScript = character:WaitForChild("Animate")
 
