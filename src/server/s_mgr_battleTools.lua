@@ -31,6 +31,10 @@ local function eatOneTool(player:Player,tool:Model)
         humanoid.WalkSpeed = ConfServerGlobal.moveSpeed*(1+player.countShoe.Value*ConfServerGlobal.moveToolAdd)
     elseif  tool.Name == "weapon" then
         player.countWeapon.Value = player.countWeapon.Value +1
+        if player.countWeapon.Value > ConfServerGlobal.weaponToolMax then
+            player.countWeapon.Value = ConfServerGlobal.weaponToolMax
+        end
+        player.Character.Weapon:ScaleTo(1+player.countWeapon.Value*ConfServerGlobal.weaponToolAdd)
     end
     tool:Destroy()
 end

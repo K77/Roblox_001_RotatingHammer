@@ -55,7 +55,7 @@ game.Players.PlayerAdded:Connect(function(player)
 	local money = getPlayerDataFromDataStore(player,"Money")
 	if money == nil then money = 0 end
 	print("money: "..money)
-	local Money = Instance.new("NumberValue", player)
+	local Money = Instance.new("IntValue", player)
 	Money.Name = "Money"
 	Money.Value = money
 	Money.Changed:Connect(function()

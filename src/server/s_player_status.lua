@@ -57,7 +57,8 @@ function module.goInBattle(player:Player)
     character.Humanoid.HealthDisplayType = Enum.HumanoidHealthDisplayType.AlwaysOn
 
     local hrp = character:WaitForChild("HumanoidRootPart")
-        local sword = workspace.FightZone.Model:Clone() :: Model -- game:GetService("Workspace").iron_sword:Clone()
+        -- local sword = workspace.FightZone.Model1:Clone() :: Model -- game:GetService("Workspace").iron_sword:Clone()
+        local sword = ConfServerGlobal.equip[player.Equip.Value].model:Clone()
         sword.PrimaryPart.Anchored = false
 		sword.Parent = character
 		sword:PivotTo(character:GetPivot() * CFrame.Angles(0,math.rad(-90),0))

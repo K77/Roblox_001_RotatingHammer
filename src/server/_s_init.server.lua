@@ -7,6 +7,7 @@ _G.s_mgr_battleTools = require(script.Parent.s_mgr_battleTools)
 _G.s_robuk = require(script.Parent.s_robuk)
 _G.s_data_bag = require(script.Parent.s_data_bag)
 _G.s_data_money = require(script.Parent.s_data_money)
+_G.s_data_equip = require(script.Parent.s_data_equip)
 
 
 

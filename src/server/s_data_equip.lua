@@ -1,7 +1,11 @@
 local module = {}
 local DataStoreService = game:GetService("DataStoreService")
 local PlayerDataStore = DataStoreService:GetDataStore("PlayerData")
+local c2s_equip = game:GetService("ReplicatedStorage")._RojoShare.Remote.c2s_equip
 
+c2s_equip.OnServerEvent:Connect(function(player,itemId)
+	player.Equip.Value = itemId
+end)
 local function savePlayerDataToDataStore(player,dataName,value)
 	local playerId = player.UserId
 	print("save data: ",playerId, dataName,value)
@@ -50,24 +54,24 @@ local function removePlayerDataFromDataStore(player, dataName)
 	return value
 end
 
-local needChangeMoney = {}
+local needChangePlayerList = {}
 game.Players.PlayerAdded:Connect(function(player)
-	local money = getPlayerDataFromDataStore(player,"equip")
-	if money == nil then money = 0 end
-	print("money: "..money)
-	local Money = Instance.new("NumberValue", player)
-	Money.Name = "Money"
-	Money.Value = money
-	Money.Changed:Connect(function()
-		if needChangeMoney[player.UserId] then return end
-		needChangeMoney[player.UserId] = true
-		wait(60)
-		savePlayerDataToDataStore(player,"Money",Money.Value)
-		needChangeMoney[player.UserId]  = nil
+	local EquipValue = getPlayerDataFromDataStore(player,"equip")
+	if EquipValue == nil then EquipValue = "1" end
+	print("Equip: "..EquipValue)
+	local Equip = Instance.new("StringValue", player)
+	Equip.Name = "Equip"
+	Equip.Value = EquipValue
+	Equip.Changed:Connect(function()
+		if needChangePlayerList[player.UserId] then return end
+		needChangePlayerList[player.UserId] = true
+		wait(6)
+		savePlayerDataToDataStore(player,"equip",Equip.Value)
+		needChangePlayerList[player.UserId]  = nil
 	end)
 end)
 
 game.Players.PlayerRemoving:Connect(function(player)
-	savePlayerDataToDataStore(player,"Money",player.Money.Value)
+	savePlayerDataToDataStore(player,"equip",player.Equip.Value)
 end)
 return module

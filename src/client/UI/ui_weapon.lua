@@ -5,6 +5,8 @@ local ui:ScreenGui
 local c_data_bag = require(script.Parent.Parent.c_data_bag)
 module.isShow = false
 module.asset = nil
+local Player = game:GetService("Players").LocalPlayer
+local c2s_equip = game:GetService("ReplicatedStorage")._RojoShare.Remote.c2s_equip
 
 function module.Show(flag:boolean, ...)
     module.isShow = flag
@@ -24,7 +26,8 @@ function module.Show(flag:boolean, ...)
         Btn_buy_ring.MouseButton1Click:Connect(function()
             print("btn click", arg[1])
             if itemCount>0 then
-
+                -- Player.Equip.Value = itemId
+                c2s_equip:FireServer(itemId)
             else
                 local MarketplaceService = game:GetService("MarketplaceService")
                 local Players = game:GetService("Players")

@@ -5,6 +5,7 @@
         {"Name": "c2s_all_bag","ClassName": "RemoteFunction"},
         {"Name": "s2c_bag_change","ClassName": "RemoteEvent"},
         {"Name": "c2c_bag_change","ClassName": "BindableEvent"},
-        {"Name": "c2s_touch_ring","ClassName": "RemoteEvent"}
+        {"Name": "c2s_touch_ring","ClassName": "RemoteEvent"},
+        {"Name": "c2s_equip","ClassName": "RemoteEvent"}
     ]
   }
