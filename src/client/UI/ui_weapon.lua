@@ -1,18 +1,17 @@
 local module = {}
 local RunService = game:GetService("RunService")
-local uiTmp = game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui'):WaitForChild("UI_Root"):WaitForChild("ui_weapon")
-local ui:ScreenGui
 local c_data_bag = require(script.Parent.Parent.c_data_bag)
 module.isShow = false
 module.asset = nil
 local Player = game:GetService("Players").LocalPlayer
 local c2s_equip = game:GetService("ReplicatedStorage")._RojoShare.Remote.c2s_equip
-
+local ui
 function module.Show(flag:boolean, ...)
     module.isShow = flag
     local arg = {...}
-    if flag then
-        ui = uiTmp:Clone()
+	if flag then
+		local uiTmp = game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui'):WaitForChild("UI_Root"):WaitForChild("ui_weapon")
+		ui = uiTmp:Clone()
         ui.Parent = uiTmp.Parent
         ui.Enabled = true
         local Btn_buy_ring = ui:WaitForChild("ImageBack"):WaitForChild("ImageLabel"):WaitForChild("TextButton") :: TextButton

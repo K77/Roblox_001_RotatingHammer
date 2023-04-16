@@ -8,13 +8,30 @@ game.Players.PlayerAdded:Connect(function(player)
     module.addToServer(player)
 end)
 
+local swordTouch
 local function resetPlayerValue(player:Player)
     player.battleStatus.Value = _G.EnumBattleStatus.outBattle
     player.countWeapon.Value = 0
     player.countShoe.Value = 0
     player.countRotate.Value = 0
 
+    local humanoid = player.character:WaitForChild("Humanoid")
+    humanoid.JumpPower = 0
+    humanoid.WalkSpeed = ConfServerGlobal.defaultMoveSpeed
+    humanoid.MaxHealth = ConfServerGlobal.startHealth
+    humanoid.Health = ConfServerGlobal.startHealth
+    player.Character.Humanoid.AutoRotate = true
+
+    player.Character:PivotTo(workspace.SafeZone.SpawnLocation:GetPivot())
+    if swordTouch then
+        swordTouch:Disconnect()
+    end
+    if player.Character.Weapon then
+        player.Character.Weapon:Destroy()
+    end
 end
+
+
 
 function module.addToServer(player:Player)
     -- local inbattle = Instance.new("BoolValue",player)
@@ -31,6 +48,7 @@ function module.addToServer(player:Player)
     countRotate.Name = "countRotate"
 
     player.CharacterAdded:Connect(function(character)
+        resetPlayerValue(player)
         local humanoid = character:WaitForChild("Humanoid")
         humanoid.Died:Connect(function()
             module.goOutBattle(player)
@@ -69,7 +87,7 @@ function module.goInBattle(player:Player)
         sword.Name = "Weapon"
 
         s_player_behave.ChangeAnimationRot(player)
-        sword.PrimaryPart.Touched:Connect(function(otherPart)
+        swordTouch = sword.PrimaryPart.Touched:Connect(function(otherPart)
         local humanoid = otherPart.Parent:FindFirstChild("Humanoid") :: Humanoid
         if humanoid then
             local echar = humanoid.Parent --game.Players:GetPlayerFromCharacter()
@@ -78,16 +96,10 @@ function module.goInBattle(player:Player)
             print("otherPart: ",otherPart.Name)
         end
         end)
-
 end
 
 function module.goOutBattle(player:Player)
-    player.battleStatus.Value = _G.EnumBattleStatus.outBattle
-    player.Character:PivotTo(workspace.SafeZone.SpawnLocation:GetPivot())
-    player.CharacterAppearanceId = player.UserId
-    task.wait(1)
-    player:LoadCharacter()
+    resetPlayerValue(player)
 end
-
 
 return module

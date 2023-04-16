@@ -1,4 +1,5 @@
 local module = {}
+local Players = game:GetService("Players")
 local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
 
 local rotAnimation = "rbxassetid://13019768278"
@@ -69,7 +70,15 @@ function module.knockback(pchar,echar)
 
 			hurting[eHrp] = true
 			echar.Humanoid.PlatformStand = true
+
             echar.Humanoid:TakeDamage(1)
+			print("echar.Humanoid.Health: ",echar.Humanoid.Health)
+			-- if echar.Humanoid.Health <=0 then
+			-- 	local player = Players:GetPlayerFromCharacter(pchar)
+			-- 	player:WaitForChild("Money").Value = player:WaitForChild("Money").Value+1
+			-- end
+			local player = Players:GetPlayerFromCharacter(pchar)
+			player:WaitForChild("Money").Value = player:WaitForChild("Money").Value+1
 			local dir = (eHrp.Position -pHrp.Position).Unit
 			local att = Instance.new("Attachment",eHrp)
 			local force = Instance.new("VectorForce",eHrp)

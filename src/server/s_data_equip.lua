@@ -56,11 +56,13 @@ end
 
 local needChangePlayerList = {}
 game.Players.PlayerAdded:Connect(function(player)
+	local Equip = Instance.new("StringValue", player)
+	Equip.Name = "Equip"
+	Equip.Value = "1"
+
 	local EquipValue = getPlayerDataFromDataStore(player,"equip")
 	if EquipValue == nil then EquipValue = "1" end
 	print("Equip: "..EquipValue)
-	local Equip = Instance.new("StringValue", player)
-	Equip.Name = "Equip"
 	Equip.Value = EquipValue
 	Equip.Changed:Connect(function()
 		if needChangePlayerList[player.UserId] then return end

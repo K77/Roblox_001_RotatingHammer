@@ -20,37 +20,44 @@ local c_prompt = require(script.Parent:WaitForChild("c_prompt"))
 local c_data_bag = require(script.Parent:WaitForChild("c_data_bag"))
 local ui_main = require(script.Parent.UI.ui_main)
 
+
+local function clearAnimation(humanoid : Humanoid)
+    local animator = humanoid:WaitForChild("Animator")
+    local animTracks = animator:GetPlayingAnimationTracks()
+
+    for i,track in ipairs(animTracks) do
+        track = track ::AnimationTrack
+        print(track.Animation.AnimationId)
+        track:AdjustWeight(0,0)
+        track:Stop(0)
+        track.Animation:Destroy()
+        track:Destroy()
+    end
+end
 local rotAnimation = "rbxassetid://13019768278"
 local battleStatus = Players.LocalPlayer:WaitForChild("battleStatus") :: IntValue
 battleStatus.Changed:Connect(function(value)
+    local player = Players.LocalPlayer
+    local character = player.Character
+    local humanoid = character:WaitForChild("Humanoid") :: Humanoid
+    local animateScript = character:WaitForChild("Animate")
+    local animator = humanoid:WaitForChild("Animator")
+
     if value == _G.EnumBattleStatus.inBattle then
-        local player = Players.LocalPlayer
-        local character = player.Character
-        local humanoid = character:WaitForChild("Humanoid") :: Humanoid
-        local animateScript = character:WaitForChild("Animate")
         animateScript.Enabled = false
-    
-        local animator = humanoid:WaitForChild("Animator")
-        local animTracks = animator:GetPlayingAnimationTracks()
-    
-        for i,track in ipairs(animTracks) do
-            track = track ::AnimationTrack
-            print(track.Animation.AnimationId)
-            track:AdjustWeight(0,0)
-            track:Stop(0)
-            track.Animation:Destroy()
-            track:Destroy()
-        end
-        
+        clearAnimation(humanoid)
         local kickAnimation = Instance.new("Animation",workspace)
         kickAnimation.AnimationId = rotAnimation
         local kickAnimationTrack = animator:LoadAnimation(kickAnimation)
         kickAnimationTrack:Play(0,10)
-        animTracks = animator:GetPlayingAnimationTracks()
+        -- animTracks = animator:GetPlayingAnimationTracks()
     
-        for i,track in ipairs(animTracks) do
-            print(track.Animation.AnimationId)
-        end
+        -- for i,track in ipairs(animTracks) do
+        --     print(track.Animation.AnimationId)
+        -- end
+    elseif value == _G.EnumBattleStatus.outBattle then
+        clearAnimation(humanoid)
+        animateScript.Enabled = true
     end
 end)
 
