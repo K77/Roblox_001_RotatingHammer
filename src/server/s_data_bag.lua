@@ -11,7 +11,7 @@ local dicBag = {}
 local needSave = {}
 
 local function SaveAll(player)
-	if player.UserId <= 0 then return end
+	-- if player.UserId <= 0 then return end
 	local success, err = pcall(function()
 		-- local key = tostring(player.UserId)
 		PlayerBagStore:SetAsync(player.UserId,dicBag[player.UserId])
@@ -68,7 +68,7 @@ function module.removePlayerFromDataStore(player)
 	local playerId = player.UserId
 	print("get data: ",playerId)
 
-	if playerId <= 0 then return 0 end
+	-- if playerId <= 0 then return 0 end
 	local value = nil
 	local success, err = pcall(function()
 		value = PlayerBagStore:RemoveAsync(playerId)
@@ -84,7 +84,7 @@ function module.removePlayerDataFromDataStore(player, dataName)
 	local playerId = player.UserId
 	print("get data: ",playerId, dataName)
 
-	if playerId <= 0 then return 0 end
+	-- if playerId <= 0 then return 0 end
 	local value = nil
 	local success, err = pcall(function()
 		local key = tostring(playerId ..":" .. dataName)
@@ -115,7 +115,7 @@ C2S_Func_GetAllBag.OnServerInvoke = function(player)
 	local playerId = player.UserId
 	print("get data: ",playerId, "PlayerBag")
 
-	if playerId <= 0 then return 0 end
+	-- if playerId <= 0 then return 0 end
 	local value = nil
 	local success, err = pcall(function()
 		-- local key = tostring(playerId)

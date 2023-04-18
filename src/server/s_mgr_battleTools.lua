@@ -34,7 +34,7 @@ local function eatOneTool(player:Player,tool:Model)
         if player.countWeapon.Value > ConfServerGlobal.weaponToolMax then
             player.countWeapon.Value = ConfServerGlobal.weaponToolMax
         end
-        player.Character.Weapon:ScaleTo(1+player.countWeapon.Value*ConfServerGlobal.weaponToolAdd)
+        -- player.Character.Weapon:ScaleTo(1+player.countWeapon.Value*ConfServerGlobal.weaponToolAdd)
     end
     tool:Destroy()
 end

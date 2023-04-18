@@ -15,7 +15,7 @@ local run = game:GetService("RunService")
 run.Stepped:Connect(function(time, deltaTime)
     local ui = game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui'):WaitForChild("UI_Root"):WaitForChild("MainUI")
     local labelHeath = ui:WaitForChild("Topcentre"):WaitForChild("LifeCount") :: TextLabel
-    print("run.Stepped",Player.character:WaitForChild("Humanoid").Health)
+    -- print("run.Stepped",Player.character:WaitForChild("Humanoid").Health)
     labelHeath.Text = Player.character:WaitForChild("Humanoid").Health
 end)
 
@@ -25,9 +25,14 @@ local btnChange = ui:WaitForChild("ChangeButton") :: GuiButton
 local rotateDir = Instance.new("BoolValue",Player)
 rotateDir.Name = "rotateDir"
 
+local btnCanClick = true
 btnChange.MouseButton1Click:Connect(function()
+    if not btnCanClick then return end
+    btnCanClick = false
     print("btnChange.MouseButton1Click")
     Player.rotateDir.Value = not Player.rotateDir.Value
+    task.wait(3)
+    btnCanClick = false
 end)
 
 return module

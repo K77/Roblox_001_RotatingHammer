@@ -9,7 +9,7 @@ end)
 local function savePlayerDataToDataStore(player,dataName,value)
 	local playerId = player.UserId
 	print("save data: ",playerId, dataName,value)
-	if playerId <= 0 then return end
+	-- if playerId <= 0 then return end
 	local success, err = pcall(function()
 		local key = tostring(playerId ..":" .. dataName)
 		PlayerDataStore:SetAsync(key,value)
@@ -24,7 +24,7 @@ local function getPlayerDataFromDataStore(player, dataName)
 	local playerId = player.UserId
 	print("get data: ",playerId, dataName)
 
-	if playerId <= 0 then return 0 end
+	-- if playerId <= 0 then return 0 end
 	local value = nil
 	local success, err = pcall(function()
 		local key = tostring(playerId ..":" .. dataName)
@@ -41,7 +41,7 @@ local function removePlayerDataFromDataStore(player, dataName)
 	local playerId = player.UserId
 	print("get data: ",playerId, dataName)
 
-	if playerId <= 0 then return 0 end
+	-- if playerId <= 0 then return 0 end
 	local value = nil
 	local success, err = pcall(function()
 		local key = tostring(playerId ..":" .. dataName)

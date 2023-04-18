@@ -26,9 +26,9 @@ local function resetPlayerValue(player:Player)
     if swordTouch then
         swordTouch:Disconnect()
     end
-    if player.Character.Weapon then
-        player.Character.Weapon:Destroy()
-    end
+    -- if player.Character.Weapon then
+    --     player.Character.Weapon:Destroy()
+    -- end
 end
 
 

@@ -69,45 +69,50 @@ function module.knockback(pchar,echar)
 		if pHrp and eHrp and not hurting[eHrp] then
 
 			hurting[eHrp] = true
-			echar.Humanoid.PlatformStand = true
+			-- echar.Humanoid.PlatformStand = true
 
-            echar.Humanoid:TakeDamage(1)
+            -- echar.Humanoid:TakeDamage(1)
+			echar.Humanoid:TakeDamage(ConfServerGlobal.hitDamage)
 			print("echar.Humanoid.Health: ",echar.Humanoid.Health)
-			-- if echar.Humanoid.Health <=0 then
-			-- 	local player = Players:GetPlayerFromCharacter(pchar)
-			-- 	player:WaitForChild("Money").Value = player:WaitForChild("Money").Value+1
-			-- end
-			local player = Players:GetPlayerFromCharacter(pchar)
-			player:WaitForChild("Money").Value = player:WaitForChild("Money").Value+1
+			if echar.Humanoid.Health <=0 then
+				local player = Players:GetPlayerFromCharacter(pchar)
+				player:WaitForChild("Money").Value = player:WaitForChild("Money").Value+1
+			end
+			-- local player = Players:GetPlayerFromCharacter(pchar)
+			-- player:WaitForChild("Money").Value = player:WaitForChild("Money").Value+1
 			local dir = (eHrp.Position -pHrp.Position).Unit
-			local att = Instance.new("Attachment",eHrp)
-			local force = Instance.new("VectorForce",eHrp)
-			local humanoid = echar:FindFirstChild("Humanoid")
-			humanoid:TakeDamage(ConfServerGlobal.hitDamage)
-			--force
-			force.Attachment0 = att
-			force.Force = (dir + Vector3.new(0,1,0)).Unit * ConfServerGlobal.hitPower
-			force.RelativeTo = Enum.ActuatorRelativeTo.World
+			local force = Instance.new("BodyVelocity", eHrp)
+			force.MaxForce = Vector3.one * math.huge
+			force.Velocity = (dir ).Unit * ConfServerGlobal.hitPower
+			game.Debris:AddItem(force,0.25)
+			-- local att = Instance.new("Attachment",eHrp)
+			-- local force = Instance.new("VectorForce",eHrp)
+			-- -- local humanoid = echar:FindFirstChild("Humanoid")
 			
-			local rot = Instance.new("AngularVelocity",eHrp)
-			rot.Attachment0 = att
-			rot.AngularVelocity = Vector3.new(1,1,1)*40
-			rot.RelativeTo = Enum.ActuatorRelativeTo.Attachment0
-			game.Debris:AddItem(force, .1)
-			game.Debris:AddItem(rot, .1)
-			game.Debris:AddItem(att, .1)
+			-- --force
+			-- force.Attachment0 = att
+			-- force.Force = (dir + Vector3.new(0,0.1,0)).Unit * ConfServerGlobal.hitPower
+			-- force.RelativeTo = Enum.ActuatorRelativeTo.World
 			
-			local animator = humanoid:WaitForChild("Animator")
-			local kickAnimation = Instance.new("Animation")
-			kickAnimation.AnimationId = "rbxassetid://12974134386"
-            local kickAnimationTrack = animator:LoadAnimation(kickAnimation)
-			kickAnimationTrack:Play()
+			-- -- local rot = Instance.new("AngularVelocity",eHrp)
+			-- -- rot.Attachment0 = att
+			-- -- rot.AngularVelocity = Vector3.new(1,1,1)*40
+			-- -- rot.RelativeTo = Enum.ActuatorRelativeTo.Attachment0
+			-- game.Debris:AddItem(force, .1)
+			-- -- game.Debris:AddItem(rot, .1)
+			-- game.Debris:AddItem(att, .1)
+			
+			-- local animator = humanoid:WaitForChild("Animator")
+			-- local kickAnimation = Instance.new("Animation")
+			-- kickAnimation.AnimationId = "rbxassetid://12974134386"
+            -- local kickAnimationTrack = animator:LoadAnimation(kickAnimation)
+			-- kickAnimationTrack:Play()
 			print("stand~~~~~~~~~~~~~~~~~~")
             task.wait(3)
 
 			hurting[eHrp] = nil
-			echar.Humanoid.PlatformStand = false
-			kickAnimationTrack:Stop()
+			-- echar.Humanoid.PlatformStand = false
+			-- kickAnimationTrack:Stop()
 		end
 	end
 end
