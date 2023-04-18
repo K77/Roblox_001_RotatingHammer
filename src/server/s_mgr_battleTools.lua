@@ -35,7 +35,7 @@ local function eatOneTool(player:Player,tool:Model)
             player.countWeapon.Value = ConfServerGlobal.weaponToolMax
         end
         local scale = (player.countWeapon.Value + 1)/(player.countWeapon.Value + 0.9)
-        -- player.Character.Weapon.PrimaryPart.Size = player.Character.Weapon.PrimaryPart.Size * scale
+        player.Character.Weapon.PrimaryPart.Size = player.Character.Weapon.PrimaryPart.Size * scale
     end
 
     ConfServerGlobal.sound.Pick:Play()
