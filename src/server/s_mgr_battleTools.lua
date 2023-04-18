@@ -34,8 +34,11 @@ local function eatOneTool(player:Player,tool:Model)
         if player.countWeapon.Value > ConfServerGlobal.weaponToolMax then
             player.countWeapon.Value = ConfServerGlobal.weaponToolMax
         end
-        -- player.Character.Weapon:ScaleTo(1+player.countWeapon.Value*ConfServerGlobal.weaponToolAdd)
+        local scale = (player.countWeapon.Value + 1)/(player.countWeapon.Value + 0.9)
+        -- player.Character.Weapon.PrimaryPart.Size = player.Character.Weapon.PrimaryPart.Size * scale
     end
+
+    ConfServerGlobal.sound.Pick:Play()
     tool:Destroy()
 end
 
@@ -45,6 +48,7 @@ local function creatOneTool()
     local posY = toolRotate:GetPivot().Y
     local ind = math.random(4)
     local tmp : Model = arrToolTmp[ind]:Clone()
+    tmp.PrimaryPart.ParticleEmitter.Enabled = true
     tmp.Parent = toolRoot
     tmp:PivotTo(CFrame.new(posX,posY,posZ))
     tmp.PrimaryPart.Transparency = 0

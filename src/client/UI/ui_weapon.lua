@@ -1,4 +1,6 @@
 local module = {}
+local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
+
 local RunService = game:GetService("RunService")
 local c_data_bag = require(script.Parent.Parent.c_data_bag)
 module.isShow = false
@@ -14,8 +16,23 @@ function module.Show(flag:boolean, ...)
 		ui = uiTmp:Clone()
         ui.Parent = uiTmp.Parent
         ui.Enabled = true
-        local Btn_buy_ring = ui:WaitForChild("ImageBack"):WaitForChild("ImageLabel"):WaitForChild("TextButton") :: TextButton
+
+
+
         local itemId = arg[1]
+
+        local txtDes = ui:WaitForChild("ImageBack"):WaitForChild("TextDes") :: TextLabel
+        txtDes.Text = ConfServerGlobal.equip[itemId].descript
+
+        local txtName = ui:WaitForChild("ImageBack"):WaitForChild("TextName") :: TextLabel
+        txtName.Text = ConfServerGlobal.equip[itemId].name
+
+        local Btn_close = ui:WaitForChild("ImageBack"):WaitForChild("BtnClose") :: GuiButton
+        Btn_close.MouseButton1Click:Connect(function()
+            module.Show(false)
+        end)
+
+        local Btn_buy_ring = ui:WaitForChild("ImageBack"):WaitForChild("ImageLabel"):WaitForChild("TextButton") :: TextButton
         local itemCount = c_data_bag.GetItemCount(itemId)
         if itemCount>0 then
             Btn_buy_ring.Text = "EQUIP"

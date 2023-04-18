@@ -32,7 +32,7 @@ btnChange.MouseButton1Click:Connect(function()
     print("btnChange.MouseButton1Click")
     Player.rotateDir.Value = not Player.rotateDir.Value
     task.wait(3)
-    btnCanClick = false
+    btnCanClick = true
 end)
 
 return module

@@ -128,6 +128,8 @@ C2S_Func_GetAllBag.OnServerInvoke = function(player)
 		module.getPlayerDataFromDataStore(player)
 	end
 	if value == nil or value == {} then value = {["1"] = 1} end
+	if value['1'] == nil then value['1'] = 1 end
+
 	dicBag[playerId] = value
 	print(dicBag)
 	return dicBag[playerId]

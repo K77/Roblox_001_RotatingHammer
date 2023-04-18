@@ -108,6 +108,8 @@ function module.knockback(pchar,echar)
             -- local kickAnimationTrack = animator:LoadAnimation(kickAnimation)
 			-- kickAnimationTrack:Play()
 			print("stand~~~~~~~~~~~~~~~~~~")
+			ConfServerGlobal.sound.Swish:Play()
+
             task.wait(3)
 
 			hurting[eHrp] = nil
