@@ -17,8 +17,6 @@ function module.Show(flag:boolean, ...)
         ui.Parent = uiTmp.Parent
         ui.Enabled = true
 
-
-
         local itemId = arg[1]
 
         local txtDes = ui:WaitForChild("ImageBack"):WaitForChild("TextDes") :: TextLabel

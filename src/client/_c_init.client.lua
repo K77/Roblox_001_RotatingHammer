@@ -19,45 +19,18 @@ local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.
 local c_prompt = require(script.Parent:WaitForChild("c_prompt"))
 local c_data_bag = require(script.Parent:WaitForChild("c_data_bag"))
 local ui_main = require(script.Parent.UI.ui_main)
+local c_animation = require(script.Parent.c_animation)
+local player = Players.LocalPlayer
 
 
-local function clearAnimation(humanoid : Humanoid)
-    local animator = humanoid:WaitForChild("Animator")
-    local animTracks = animator:GetPlayingAnimationTracks()
-
-    for i,track in ipairs(animTracks) do
-        track = track ::AnimationTrack
-        print(track.Animation.AnimationId)
-        track:AdjustWeight(0,0)
-        track:Stop(0)
-        track.Animation:Destroy()
-        track:Destroy()
-    end
-end
-local rotAnimation = "rbxassetid://13019768278"
+local rotAnimation = workspace:WaitForChild("Sounds"):WaitForChild("HandsUp")--"rbxassetid://13019768278"
 local battleStatus = Players.LocalPlayer:WaitForChild("battleStatus") :: IntValue
-battleStatus.Changed:Connect(function(value)
-    local player = Players.LocalPlayer
-    local character = player.Character
-    local humanoid = character:WaitForChild("Humanoid") :: Humanoid
-    local animateScript = character:WaitForChild("Animate")
-    local animator = humanoid:WaitForChild("Animator")
 
+battleStatus.Changed:Connect(function(value)
     if value == _G.EnumBattleStatus.inBattle then
-        animateScript.Enabled = false
-        clearAnimation(humanoid)
-        local kickAnimation = Instance.new("Animation",workspace)
-        kickAnimation.AnimationId = rotAnimation
-        local kickAnimationTrack = animator:LoadAnimation(kickAnimation)
-        kickAnimationTrack:Play(0,10)
-        -- animTracks = animator:GetPlayingAnimationTracks()
-    
-        -- for i,track in ipairs(animTracks) do
-        --     print(track.Animation.AnimationId)
-        -- end
+        c_animation.clearAndPlay(player,rotAnimation)
     elseif value == _G.EnumBattleStatus.outBattle then
-        clearAnimation(humanoid)
-        animateScript.Enabled = true
+        c_animation.resetAnim(player)
     end
 end)
 

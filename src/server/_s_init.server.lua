@@ -8,6 +8,7 @@ _G.s_robuk = require(script.Parent.s_robuk)
 _G.s_data_bag = require(script.Parent.s_data_bag)
 _G.s_data_money = require(script.Parent.s_data_money)
 _G.s_data_equip = require(script.Parent.s_data_equip)
+_G.s_leaderstats = require(script.Parent.s_leaderstats)
 
 
 
@@ -26,6 +27,9 @@ Players = game:GetService("Players")
 
 local clickDetector = workspace.FightZone.VillaStatue.Union.ClickDetector
 
+task.spawn(function()
+	
+end)
 
 function onMouseClick()
 
