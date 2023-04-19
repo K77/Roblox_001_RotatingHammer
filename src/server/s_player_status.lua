@@ -4,7 +4,7 @@ local s_player_behave = require(script.Parent.s_player_behave)
 local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
 
 
-game.Players.PlayerAdded:Connect(function(player)
+game.Players.PlayerAdded:Connect(function(player:Player)
     module.addToServer(player)
 end)
 
