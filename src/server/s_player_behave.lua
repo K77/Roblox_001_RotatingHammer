@@ -67,24 +67,24 @@ function module.knockback(pchar,echar)
 		local pHrp = pchar:FindFirstChild("HumanoidRootPart")
 		local eHrp = echar:FindFirstChild("HumanoidRootPart")
 		if pHrp and eHrp and not hurting[eHrp] then
-
 			hurting[eHrp] = true
-			-- echar.Humanoid.PlatformStand = true
 
-            -- echar.Humanoid:TakeDamage(1)
 			echar.Humanoid:TakeDamage(ConfServerGlobal.hitDamage)
+			local forceField = Instance.new("ForceField",echar)
+			forceField.Visible = true
 			print("echar.Humanoid.Health: ",echar.Humanoid.Health)
+			local player = Players:GetPlayerFromCharacter(pchar)
+			local coins = player:WaitForChild("leaderstats"):WaitForChild("coins") :: IntValue
+			-- coins.Value = coins.Value+1
 			if echar.Humanoid.Health <=0 then
-				local player = Players:GetPlayerFromCharacter(pchar)
-				player:WaitForChild("Money").Value = player:WaitForChild("Money").Value+1
+				coins.Value = coins.Value.Value+1
 			end
-			-- local player = Players:GetPlayerFromCharacter(pchar)
-			-- player:WaitForChild("Money").Value = player:WaitForChild("Money").Value+1
 			local dir = (eHrp.Position -pHrp.Position).Unit
 			local force = Instance.new("BodyVelocity", eHrp)
 			force.MaxForce = Vector3.one * math.huge
 			force.Velocity = (dir ).Unit * ConfServerGlobal.hitPower
 			game.Debris:AddItem(force,0.25)
+			-- echar.Humanoid.PlatformStand = true
 			-- local att = Instance.new("Attachment",eHrp)
 			-- local force = Instance.new("VectorForce",eHrp)
 			-- -- local humanoid = echar:FindFirstChild("Humanoid")
@@ -107,12 +107,12 @@ function module.knockback(pchar,echar)
 			-- kickAnimation.AnimationId = "rbxassetid://12974134386"
             -- local kickAnimationTrack = animator:LoadAnimation(kickAnimation)
 			-- kickAnimationTrack:Play()
-			print("stand~~~~~~~~~~~~~~~~~~")
 			ConfServerGlobal.sound.Swish:Play()
 
             task.wait(3)
 
 			hurting[eHrp] = nil
+			forceField:Destroy()
 			-- echar.Humanoid.PlatformStand = false
 			-- kickAnimationTrack:Stop()
 		end

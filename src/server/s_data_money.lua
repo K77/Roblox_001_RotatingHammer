@@ -55,13 +55,15 @@ game.Players.PlayerAdded:Connect(function(player)
 	local money = getPlayerDataFromDataStore(player,"Money")
 	if money == nil then money = 0 end
 	print("money: "..money)
-	local Money = Instance.new("IntValue", player)
-	Money.Name = "Money"
+	-- local Money = Instance.new("IntValue", player)
+	-- Money.Name = "Money"
+	-- Money.Value = money
+	local Money = player:WaitForChild("leaderstats"):WaitForChild("coins")
 	Money.Value = money
 	Money.Changed:Connect(function()
 		if needChangeMoney[player.UserId] then return end
 		needChangeMoney[player.UserId] = true
-		wait(60)
+		wait(6)
 		savePlayerDataToDataStore(player,"Money",Money.Value)
 		needChangeMoney[player.UserId]  = nil
 	end)
