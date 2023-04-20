@@ -26,13 +26,7 @@ Players = game:GetService("Players")
 
 
 local clickDetector = workspace.FightZone.VillaStatue.Union.ClickDetector
-
-task.spawn(function()
-	
-end)
-
 function onMouseClick()
-
 	print("You clicked me!")
 	s_mgr_player.goOutBattle(Players.LocalPlayer)
 

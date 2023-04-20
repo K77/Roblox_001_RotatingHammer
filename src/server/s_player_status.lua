@@ -2,9 +2,20 @@ local module = {}
 local Players = game:GetService("Players")
 local s_player_behave = require(script.Parent.s_player_behave)
 local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
-
+local ServerStorage = game:GetService("ServerStorage")
 
 game.Players.PlayerAdded:Connect(function(player:Player)
+    player.CharacterAdded:Connect(function()
+        local char = player.Character
+        local humanoid = char:WaitForChild("Humanoid")
+        humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+        local head = char:WaitForChild("Head")
+        local headName = ServerStorage.HeadName:Clone()
+        headName.Parent = head
+        headName.Adornee = head
+        headName.TextLabel.Text = player.Name
+        print("asdfasdfasdfasdfasdfasdfasdfads")
+    end)
     module.addToServer(player)
 end)
 
