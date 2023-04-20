@@ -13,6 +13,7 @@ local toolRoot : Folder = workspace.BattleToolsTmp
 local arrToolTmp = {toolRotate,toolLife,toolWeapon,toolMove}
 
 local function eatOneTool(player:Player,tool:Model)
+    if player == nil then return end
     local humanoid = player.Character.Humanoid
     if tool.Name == "rotate" then
         player.countRotate.Value = player.countRotate.Value +1

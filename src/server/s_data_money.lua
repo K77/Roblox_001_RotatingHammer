@@ -70,6 +70,6 @@ game.Players.PlayerAdded:Connect(function(player)
 end)
 
 game.Players.PlayerRemoving:Connect(function(player)
-	savePlayerDataToDataStore(player,"Money",player.Money.Value)
+	savePlayerDataToDataStore(player,"Money",player.leaderstats.coins.Value)
 end)
 return module
