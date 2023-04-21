@@ -2,7 +2,7 @@ local module = {}
 local Players = game:GetService("Players")
 local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
 
-local rotAnimation = "rbxassetid://13019768278"
+-- local rotAnimation = "rbxassetid://13019768278"
 -- local runAnimation = "rbxassetid://13019768278"
 -- local rotAnimation = "rbxassetid://13019768278"
 -- local rotAnimation = "rbxassetid://13019768278"
@@ -70,15 +70,19 @@ function module.knockback(pchar,echar)
 			hurting[eHrp] = true
 
 			echar.Humanoid:TakeDamage(ConfServerGlobal.hitDamage)
-			local forceField = Instance.new("ForceField",echar)
-			forceField.Visible = true
-			print("echar.Humanoid.Health: ",echar.Humanoid.Health)
+
 			local player = Players:GetPlayerFromCharacter(pchar)
 			local coins = player:WaitForChild("leaderstats"):WaitForChild("coins") :: IntValue
-			-- coins.Value = coins.Value+1
 			if echar.Humanoid.Health <=0 then
 				coins.Value = coins.Value.Value+1
 			end
+			local forceField = Instance.new("ForceField",echar)
+			forceField.Visible = true
+			print("echar.Humanoid.Health: ",echar.Humanoid.Health)
+			
+			
+			-- coins.Value = coins.Value+1
+
 			local dir = (eHrp.Position -pHrp.Position).Unit
 			local force = Instance.new("BodyVelocity", eHrp)
 			force.MaxForce = Vector3.one * math.huge

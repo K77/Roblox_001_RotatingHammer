@@ -20,7 +20,7 @@ local function eatOneTool(player:Player,tool:Model)
         if player.countRotate.Value > ConfServerGlobal.rotateToolMax then
             player.countRotate.Value = ConfServerGlobal.rotateToolMax
         end
-        -- humanoid.WalkSpeed = ConfServerGlobal.moveSpeed*(1+player.countShoe.Value*ConfServerGlobal.moveToolAdd)
+        humanoid.WalkSpeed = ConfServerGlobal.moveSpeed*(1+player.countShoe.Value*ConfServerGlobal.moveToolAdd)
     elseif  tool.Name == "life" then
         humanoid.Health = humanoid.Health+1
         -- player.countLife.Value = player.countLife.Value +1
@@ -39,8 +39,6 @@ local function eatOneTool(player:Player,tool:Model)
                 ((player.countWeapon.Value - 1)*ConfServerGlobal.weaponToolAdd + 1)
             player.Character.Weapon.PrimaryPart.Size = player.Character.Weapon.PrimaryPart.Size * scale
         end
-        
-        
     end
 
     ConfServerGlobal.sound.Pick:Play()
@@ -69,8 +67,8 @@ local function creatOneTool()
 end 
 
 local timePass = 0
-local timeInterval = 1
-local maxTool = 5
+local timeInterval = 3
+local maxTool = 3
 RunService.Stepped:Connect(function(time, deltaTime)
     local arr = toolRoot:GetChildren()
     local players = Players:GetPlayers()

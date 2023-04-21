@@ -16,6 +16,7 @@ _G.EnumBattleStatus = {
 local Players = game:GetService("Players")
 local run = game:GetService("RunService")
 local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
+local c_debug = require(script.Parent:WaitForChild("c_debug"))
 local c_prompt = require(script.Parent:WaitForChild("c_prompt"))
 local c_data_bag = require(script.Parent:WaitForChild("c_data_bag"))
 local ui_main = require(script.Parent.UI.ui_main)
@@ -23,12 +24,13 @@ local c_animation = require(script.Parent.c_animation)
 local player = Players.LocalPlayer
 
 
-local rotAnimation = workspace:WaitForChild("Sounds"):WaitForChild("HandsUp")--"rbxassetid://13019768278"
+local rotAnimation = "rbxassetid://13019768278"
 local battleStatus = Players.LocalPlayer:WaitForChild("battleStatus") :: IntValue
 
 battleStatus.Changed:Connect(function(value)
     if value == _G.EnumBattleStatus.inBattle then
-        c_animation.clearAndPlay(player,rotAnimation)
+        -- rotAnimation = workspace:WaitForChild("Sounds"):WaitForChild("HandsUp")--
+        c_animation.onlyRot()
     elseif value == _G.EnumBattleStatus.outBattle then
         c_animation.resetAnim(player)
     end
