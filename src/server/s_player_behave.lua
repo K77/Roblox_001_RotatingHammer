@@ -61,20 +61,42 @@ function module.resetAnimation(player : Player)
     animateScript.jump.JumpAnim.AnimationId = rotAnimation
 end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 local hurting = {}
 function module.knockback(pchar,echar)
 	if pchar and echar then
 		local pHrp = pchar:FindFirstChild("HumanoidRootPart")
 		local eHrp = echar:FindFirstChild("HumanoidRootPart")
-		if pHrp and eHrp and not hurting[eHrp] then
-			hurting[eHrp] = true
+		if pHrp and eHrp then
+			local ePlayer = Players:GetPlayerFromCharacter(echar)
+			local pPlayer = Players:GetPlayerFromCharacter(pchar)
+
+			if hurting[pPlayer] then return end
+
+			if ePlayer then
+				if hurting[ePlayer] then return end
+				hurting[ePlayer] = true
+			end
 
 			echar.Humanoid:TakeDamage(ConfServerGlobal.hitDamage)
 
 			local player = Players:GetPlayerFromCharacter(pchar)
 			local coins = player:WaitForChild("leaderstats"):WaitForChild("coins") :: IntValue
 			if echar.Humanoid.Health <=0 then
-				coins.Value = coins.Value.Value+1
+				coins.Value = coins.Value+1
 			end
 			local forceField = Instance.new("ForceField",echar)
 			forceField.Visible = true
@@ -113,9 +135,10 @@ function module.knockback(pchar,echar)
 			-- kickAnimationTrack:Play()
 			ConfServerGlobal.sound.Swish:Play()
 
-            task.wait(3)
+            task.wait(2)
 
-			hurting[eHrp] = nil
+			if ePlayer then hurting[ePlayer] = nil end
+			
 			forceField:Destroy()
 			-- echar.Humanoid.PlatformStand = false
 			-- kickAnimationTrack:Stop()
