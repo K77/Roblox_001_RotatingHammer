@@ -16,6 +16,11 @@ end
 
 preLoadAni()
 
+game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(character)
+    print("CharacterAdded from client!!!")
+    preLoadAni()
+end)
+
 
 function module.onlyRot(player:Player)
     print("module.onlyRot")
@@ -42,7 +47,7 @@ function module.resetAnim(player:Player)
     local character = player.Character
     local animateScript = character:WaitForChild("Animate")
     animateScript.Enabled = true
-    preLoadAni()
+    -- preLoadAni()
 end
 
 return module
