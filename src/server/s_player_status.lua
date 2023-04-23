@@ -19,7 +19,7 @@ game.Players.PlayerAdded:Connect(function(player:Player)
     module.addToServer(player)
 end)
 
-local swordTouch
+local swordTouch = {}
 local function resetPlayerValue(player:Player)
     player.battleStatus.Value = _G.EnumBattleStatus.outBattle
     player.countWeapon.Value = 0
@@ -34,8 +34,8 @@ local function resetPlayerValue(player:Player)
     player.Character.Humanoid.AutoRotate = true
 
     player.Character:PivotTo(workspace.SafeZone.SpawnLocation:GetPivot())
-    if swordTouch then
-        swordTouch:Disconnect()
+    if swordTouch[player] then
+        swordTouch[player]:Disconnect()
     end
     if player.Character:FindFirstChild("Weapon") then
         player.Character.Weapon:Destroy()
@@ -62,6 +62,7 @@ function module.addToServer(player:Player)
         resetPlayerValue(player)
         local humanoid = character:WaitForChild("Humanoid")
         humanoid.Died:Connect(function()
+            task.wait(2)
             module.goOutBattle(player)
         end)
         
@@ -98,7 +99,7 @@ function module.goInBattle(player:Player)
         sword.Name = "Weapon"
 
         s_player_behave.ChangeAnimationRot(player)
-        swordTouch = sword.PrimaryPart.Touched:Connect(function(otherPart)
+        swordTouch[player] = sword.PrimaryPart.Touched:Connect(function(otherPart)
         local humanoid = otherPart.Parent:FindFirstChild("Humanoid") :: Humanoid
         if humanoid then
             local echar = humanoid.Parent --game.Players:GetPlayerFromCharacter()
