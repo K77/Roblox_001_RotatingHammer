@@ -18,8 +18,16 @@ game.Players.PlayerAdded:Connect(function(player:Player)
     end)
     module.addToServer(player)
 end)
-
 local swordTouch = {}
+
+game.Players.PlayerRemoving:Connect(function(player)
+    if swordTouch[player] then
+        -- swordTouch[player]:Disconnect()
+        swordTouch[player] = nil
+    end
+end)
+
+
 local function resetPlayerValue(player:Player)
     player.battleStatus.Value = _G.EnumBattleStatus.outBattle
     player.countWeapon.Value = 0
