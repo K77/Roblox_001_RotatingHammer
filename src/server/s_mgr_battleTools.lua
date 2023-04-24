@@ -20,7 +20,7 @@ local function eatOneTool(player:Player,tool:Model)
         if player.countRotate.Value > ConfServerGlobal.rotateToolMax then
             player.countRotate.Value = ConfServerGlobal.rotateToolMax
         end
-        humanoid.WalkSpeed = ConfServerGlobal.moveSpeed*(1+player.countShoe.Value*ConfServerGlobal.moveToolAdd)
+        -- humanoid.WalkSpeed = ConfServerGlobal.moveSpeed*(1+player.countShoe.Value*ConfServerGlobal.moveToolAdd)
     elseif  tool.Name == "life" then
         humanoid.Health = humanoid.Health+1
         -- player.countLife.Value = player.countLife.Value +1

@@ -43,7 +43,7 @@ run.RenderStepped:Connect(function(deltaTime)
     local rotateDir = player:WaitForChild("rotateDir")
     local battleStatus = player:WaitForChild("battleStatus")
     if battleStatus.Value == _G.EnumBattleStatus.inBattle then
-        local rotate = player:WaitForChild("countRotate").Value
+        local rotate = player:WaitForChild("countRotate").Value * ConfServerGlobal.rotateToolAdd
         local newCF = CFrame.new(player.Character:GetPivot().Position)
         local rValue = 0
         if rotateDir.Value then
