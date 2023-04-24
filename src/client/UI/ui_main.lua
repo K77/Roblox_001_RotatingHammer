@@ -2,13 +2,30 @@ local module = {}
 local ui = game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui'):WaitForChild("UI_Root",20):WaitForChild("MainUI")
 local Players = game:GetService("Players")
 local Player = game:GetService("Players").LocalPlayer
-
+local SocialService = game:GetService("SocialService")
 
 
 local labelMoney = ui:WaitForChild("Topcentre"):WaitForChild("MeDalCount") :: TextLabel
 local money = Player:WaitForChild("leaderstats"):WaitForChild("coins") :: IntValue
 
 local battleStatus = Players.LocalPlayer:WaitForChild("battleStatus") :: IntValue
+
+
+
+
+
+
+local btnInvite = ui:WaitForChild("BtnInvite") :: GuiButton
+btnInvite.MouseButton1Click:Connect(function()
+    local success, result = pcall(
+        function()
+            return SocialService:CanSendGameInviteAsync(Player)
+        end
+    )
+    if result == true then
+        SocialService:PromptGameInvite(Player)
+    end
+end)
 
 
 
