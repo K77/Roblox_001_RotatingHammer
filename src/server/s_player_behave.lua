@@ -97,6 +97,9 @@ function module.knockback(pchar,echar)
 			local coins = player:WaitForChild("leaderstats"):WaitForChild("coins") :: IntValue
 			if echar.Humanoid.Health <=0 then
 				coins.Value = coins.Value+1
+				ConfServerGlobal.sound.Death1:Play()
+			else
+				ConfServerGlobal.sound.Hited:Play()
 			end
 			local forceField = Instance.new("ForceField",echar)
 			forceField.Visible = true
