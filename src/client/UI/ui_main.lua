@@ -15,7 +15,7 @@ local battleStatus = Players.LocalPlayer:WaitForChild("battleStatus") :: IntValu
 
 
 
-local btnInvite = ui:WaitForChild("BtnInvite") :: GuiButton
+local btnInvite = ui:WaitForChild("BtnInvite"):WaitForChild("Click") :: GuiButton
 btnInvite.MouseButton1Click:Connect(function()
     local success, result = pcall(
         function()

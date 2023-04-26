@@ -95,13 +95,19 @@ function module.knockback(pchar,echar)
 
 			local player = Players:GetPlayerFromCharacter(pchar)
 			local coins = player:WaitForChild("leaderstats"):WaitForChild("coins") :: IntValue
+			ConfServerGlobal.sound.Swish:Play()
 			if echar.Humanoid.Health <=0 then
+				if echar:FindFirstChild("forceField") then
+					return
+				end
 				coins.Value = coins.Value+1
 				ConfServerGlobal.sound.Death1:Play()
 			else
 				ConfServerGlobal.sound.Hited:Play()
 			end
+
 			local forceField = Instance.new("ForceField",echar)
+			forceField.Name = "forceField"
 			forceField.Visible = true
 			print("echar.Humanoid.Health: ",echar.Humanoid.Health)
 			
@@ -113,6 +119,7 @@ function module.knockback(pchar,echar)
 			force.MaxForce = Vector3.one * math.huge
 			force.Velocity = (dir ).Unit * ConfServerGlobal.hitPower
 			game.Debris:AddItem(force,0.25)
+			game.Debris:AddItem(forceField,2)
 			-- echar.Humanoid.PlatformStand = true
 			-- local att = Instance.new("Attachment",eHrp)
 			-- local force = Instance.new("VectorForce",eHrp)
@@ -136,13 +143,12 @@ function module.knockback(pchar,echar)
 			-- kickAnimation.AnimationId = "rbxassetid://12974134386"
             -- local kickAnimationTrack = animator:LoadAnimation(kickAnimation)
 			-- kickAnimationTrack:Play()
-			ConfServerGlobal.sound.Swish:Play()
+			
 
             task.wait(2)
 
 			if ePlayer then hurting[ePlayer] = nil end
 			
-			forceField:Destroy()
 			-- echar.Humanoid.PlatformStand = false
 			-- kickAnimationTrack:Stop()
 		end
