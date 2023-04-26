@@ -45,11 +45,14 @@ local arrToolTmp = {toolRotate,toolLife,toolWeapon,toolMove}
 --     tool:Destroy()
 -- end
 
+
+local dicEnemyTime = {}
 local function creatOne()
     local posX = _G.util_random.getBetween(toolRotate:GetPivot().X,toolWeapon:GetPivot().X)
     local posZ = _G.util_random.getBetween(toolRotate:GetPivot().Z,toolWeapon:GetPivot().Z)
     local posY = toolRotate:GetPivot().Y
     local tmp : Model = workspace.WatchingPeople.Enemy:Clone()
+    dicEnemyTime[tmp] = 0
     local humanoid = tmp.Humanoid :: Humanoid
     humanoid.MaxHealth = 3
     humanoid.Health = 3
@@ -70,7 +73,9 @@ end
 
 local timePass = 0
 local timeInterval = 3
-local maxTool = 3
+local timeInterval1 = 300
+
+local maxTool = 6
 RunService.Stepped:Connect(function(time, deltaTime)
     local arr = toolRoot:GetChildren()
     -- local players = Players:GetPlayers()
@@ -86,12 +91,18 @@ RunService.Stepped:Connect(function(time, deltaTime)
     
     for i = 1, #arr, 1 do
         local humanoid = arr[i].Humanoid
+        dicEnemyTime[arr[i]] +=deltaTime
         if humanoid.Health <= 0 then
             task.wait(2)
             arr[i]:Destroy()
             return
         end
+        if dicEnemyTime[arr[i]]>600 then
+            arr[i]:Destroy()
+            return
+        end
     end
+
 
 end)
 
