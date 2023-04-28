@@ -1,6 +1,6 @@
 local module = {}
 local DataStoreService = game:GetService("DataStoreService")
-local PlayerDataStore = DataStoreService:GetDataStore("PlayerData")
+local PlayerDataStore = DataStoreService:GetDataStore("PlayerEquip")
 local c2s_equip = game:GetService("ReplicatedStorage")._RojoShare.Remote.c2s_equip
 
 c2s_equip.OnServerEvent:Connect(function(player,itemId)

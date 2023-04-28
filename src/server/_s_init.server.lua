@@ -10,6 +10,7 @@ _G.s_data_money = require(script.Parent.s_data_money)
 _G.s_data_equip = require(script.Parent.s_data_equip)
 _G.s_leaderstats = require(script.Parent.s_leaderstats)
 _G.s_enemy = require(script.Parent.s_enemy)
+_G.s_head_name = require(script.Parent.s_head_name)
 
 
 

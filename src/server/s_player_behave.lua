@@ -64,17 +64,6 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 local hurting = {}
 function module.knockback(pchar,echar)
 	if pchar and echar then
