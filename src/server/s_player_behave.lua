@@ -54,11 +54,11 @@ function module.resetAnimation(player : Player)
 
 	local animateScript = character:WaitForChild("Animate")
 
-	animateScript.run.RunAnim.AnimationId = rotAnimation
-	animateScript.walk.WalkAnim.AnimationId = rotAnimation
-	animateScript.idle.Animation1.AnimationId = rotAnimation
-	animateScript.idle.Animation2.AnimationId = rotAnimation
-    animateScript.jump.JumpAnim.AnimationId = rotAnimation
+	-- animateScript.run.RunAnim.AnimationId = rotAnimation
+	-- animateScript.walk.WalkAnim.AnimationId = rotAnimation
+	-- animateScript.idle.Animation1.AnimationId = rotAnimation
+	-- animateScript.idle.Animation2.AnimationId = rotAnimation
+    -- animateScript.jump.JumpAnim.AnimationId = rotAnimation
 end
 
 

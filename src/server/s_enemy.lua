@@ -75,7 +75,7 @@ local timePass = 0
 local timeInterval = 3
 local timeInterval1 = 300
 
-local maxTool = 6
+local maxTool = 3
 RunService.Stepped:Connect(function(time, deltaTime)
     local arr = toolRoot:GetChildren()
     -- local players = Players:GetPlayers()

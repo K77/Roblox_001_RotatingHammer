@@ -5,13 +5,15 @@ Players.PlayerAdded:Connect(function(player)
         -- local char = script.Parent
         -- local player = game.Players:GetPlayerFromCharacter(char)
         print(script.Name.."CharacterAppearanceLoaded")
-        local humanoid = char:WaitForChild("Humanoid")
+        local humanoid = char:WaitForChild("Humanoid") :: Humanoid
         humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+        humanoid.DisplayName = ""
+        humanoid.NameDisplayDistance = 0
         local head = char:WaitForChild("HumanoidRootPart")
         local headName = game.ServerStorage.HeadName:Clone()
         headName.Parent = head
         headName.Adornee = head
-        headName.TextLabel.Text = player.Name
+        headName.TextLabel.Text = player.DisplayName
     end)
 end)
 
