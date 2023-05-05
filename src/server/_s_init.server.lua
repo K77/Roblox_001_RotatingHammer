@@ -12,6 +12,7 @@ _G.s_leaderstats = require(script.Parent.s_leaderstats)
 _G.s_enemy = require(script.Parent.s_enemy)
 _G.s_head_name = require(script.Parent.s_head_name)
 _G.s_test_player = require(script.Parent.s_test_player)
+_G.s_daily_login = require(script.Parent.s_daily_login)
 
 
 
