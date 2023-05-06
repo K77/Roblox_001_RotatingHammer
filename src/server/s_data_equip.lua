@@ -1,6 +1,6 @@
 local module = {}
 local DataStoreService = game:GetService("DataStoreService")
-local PlayerDataStore = DataStoreService:GetDataStore("PlayerEquip")
+local PlayerDataStore = DataStoreService:GetDataStore("PlayerEquip1")
 local c2s_equip = game:GetService("ReplicatedStorage")._RojoShare.Remote.c2s_equip
 
 c2s_equip.OnServerEvent:Connect(function(player,itemId)
@@ -54,14 +54,15 @@ local function removePlayerDataFromDataStore(player, dataName)
 	return value
 end
 
+local defaultWeapon = "exp_0"
 local needChangePlayerList = {}
 game.Players.PlayerAdded:Connect(function(player)
 	local Equip = Instance.new("StringValue", player)
 	Equip.Name = "Equip"
-	Equip.Value = "1"
+	Equip.Value = defaultWeapon
 
 	local EquipValue = getPlayerDataFromDataStore(player,"equip")
-	if EquipValue == nil then EquipValue = "1" end
+	if EquipValue == nil then EquipValue = defaultWeapon end
 	print("Equip: "..EquipValue)
 	Equip.Value = EquipValue
 	Equip.Changed:Connect(function()

@@ -21,6 +21,7 @@ local c_prompt = require(script.Parent:WaitForChild("c_prompt"))
 local c_data_bag = require(script.Parent:WaitForChild("c_data_bag"))
 local ui_main = require(script.Parent.UI.ui_main)
 local c_animation = require(script.Parent.c_animation)
+-- local c_head_name = require(script.Parent.c_head_name)
 local player = Players.LocalPlayer
 
 
@@ -39,6 +40,7 @@ end)
 print("player.battleStatus.Value",_G.EnumBattleStatus.inBattle,Players)
 
 run.RenderStepped:Connect(function(deltaTime)
+    -- print("deltaTime",deltaTime)
     local player = Players.LocalPlayer
     local rotateDir = player:WaitForChild("rotateDir")
     local battleStatus = player:WaitForChild("battleStatus")
@@ -47,9 +49,9 @@ run.RenderStepped:Connect(function(deltaTime)
         local newCF = CFrame.new(player.Character:GetPivot().Position)
         local rValue = 0
         if rotateDir.Value then
-            rValue = ConfServerGlobal.rotateSpeed*(rotate+1)
+            rValue = ConfServerGlobal.rotateSpeed*(rotate+1)*(deltaTime/0.016)
         else
-            rValue = -ConfServerGlobal.rotateSpeed*(rotate+1)
+            rValue = -ConfServerGlobal.rotateSpeed*(rotate+1)*(deltaTime/0.016)
         end
 
 

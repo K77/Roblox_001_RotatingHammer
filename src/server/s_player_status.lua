@@ -5,17 +5,17 @@ local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.
 local ServerStorage = game:GetService("ServerStorage")
 
 game.Players.PlayerAdded:Connect(function(player:Player)
-    player.CharacterAdded:Connect(function()
-        local char = player.Character
-        local humanoid = char:WaitForChild("Humanoid")
-        humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
-        local head = char:WaitForChild("Head")
-        local headName = ServerStorage.HeadName:Clone()
-        headName.Parent = head
-        headName.Adornee = head
-        headName.TextLabel.Text = player.Name
-        print("asdfasdfasdfasdfasdfasdfasdfads")
-    end)
+    -- player.CharacterAdded:Connect(function()
+    --     local char = player.Character
+    --     local humanoid = char:WaitForChild("Humanoid")
+    --     humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+    --     local head = char:WaitForChild("Head")
+    --     local headName = ServerStorage.HeadName:Clone()
+    --     headName.Parent = head
+    --     headName.Adornee = head
+    --     headName.TextLabel.Text = player.Name
+    --     print("asdfasdfasdfasdfasdfasdfasdfads")
+    -- end)
     module.addToServer(player)
 end)
 local swordTouch = {}

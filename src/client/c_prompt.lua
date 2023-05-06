@@ -7,6 +7,10 @@ local function onPromptTriggered(promptObject:ProximityPrompt, player:Player)
         local ui_weapon = require(script.Parent.UI.ui_weapon)
         ui_weapon.Show(true,promptObject:GetAttribute("itemId"))
         print("onPromptTriggered",promptObject:GetAttribute("itemId"))
+    elseif promptObject.Name == "PromptExpWeapon" then
+        local ui_weapon = require(script.Parent.UI.ui_exp_weapon)
+        ui_weapon.Show(true,promptObject:GetAttribute("itemId"))
+        print("onPromptTriggered",promptObject:GetAttribute("itemId"))
     end
 end
 
@@ -14,6 +18,9 @@ end
 local function onPromptHidden(promptObject, player)
     if promptObject.Name == "PromptWeapon" then
         local ui_weapon = require(script.Parent.UI.ui_weapon)
+        ui_weapon.Show(false)
+    elseif promptObject.Name == "PromptExpWeapon" then
+        local ui_weapon = require(script.Parent.UI.ui_exp_weapon)
         ui_weapon.Show(false)
     end
 end
