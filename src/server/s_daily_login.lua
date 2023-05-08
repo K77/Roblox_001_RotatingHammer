@@ -4,38 +4,71 @@ local PlayerDataStore = DataStoreService:GetDataStore("PlayerDailyLogin")
 
 local Players = game:GetService("Players")
 local oneDaySeconds = 60*60*25
+local keyDays = "keyDays"
+local keyDuration = "keyDuration"
+local today = os.time() / oneDaySeconds
 
-function newDailyData()
-    local tmp = {}
-    tmp.CreateDay = os.time() / oneDaySeconds--os.date("%x", os.time())
-    print("11111111111111111111111",tmp.CreateDay)
-    return tmp
-end
+function processDays(days)
+    local function newDailyData()
+        local tmp = {}
+        tmp.CreateDay = today--os.date("%x", os.time())
+        tmp.Days30 = {}
+        tmp.Days30[today] = false
+        -- table.insert(tmp.Days30,today)
+        return tmp
+    end
 
-function getDataFromDB(playerId)
-    return nil
-end
-
-function saveDataToDB(playerId)
+    if days == nil then
+        days = newDailyData()
+    else
+        if days.Days30[today] == nil then
+            days.Days30[today] = false
+        end
+    end
     
 end
 
-local dic = {}
+function getDataFromDB(playerId,key)
+    return nil
+end
+
+function saveDataToDB(playerId,key)
+    
+end
+
+local dicDays = {}
+local dicDuration = {}
 
 Players.PlayerAdded:Connect(function(player)
-    local data = getDataFromDB(player.UserId)
-    if data == nil then data = newDailyData() end
-    dic[player] = data
+    local data = getDataFromDB(player.UserId,keyDays)
+    data = processDays(data)
+    saveDataToDB(player.UserId,keyDays)
+    dicDays[player] = data
 end)
 
 Players.PlayerRemoving:Connect(function(player)
     saveDataToDB(player.UserId)
-    dic[player] = nil
+    dicDays[player] = nil
 end)
 
 local currentSecond = os.time()
 game:GetService("RunService").Stepped:Connect(function(time, deltaTime)
-    
+    if currentSecond == time then return end
+    currentSecond = time
+
+    for player, value in dicDuration do
+        dicDuration[player] = value+1
+    end
+
+    --处理登录天数
+    local date = os.time() / oneDaySeconds
+    if today ~= date then
+        today = date
+        for player, data in dicDays do
+            dicDays[player] = processDays(data)
+            -- task.wait(1)
+        end
+    end
 end)
 
 return module
