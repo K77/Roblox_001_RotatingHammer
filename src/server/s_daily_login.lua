@@ -1,14 +1,18 @@
 local module = {}
 local DataStoreService = game:GetService("DataStoreService")
 local PlayerDataStore = DataStoreService:GetDataStore("PlayerDailyLogin")
+local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.ConfServerGlobal)
+
+print("ConfServerGlobal.duration: ", #ConfServerGlobal.duration)
 
 local Players = game:GetService("Players")
 local oneDaySeconds = 60*60*25
-local keyDays = "keyDays"
-local keyDuration = "keyDuration"
+local dbKeyDays = "keyDays"
+local dbKeyDuration = "keyDuration"
 local today = os.time() / oneDaySeconds
 
-function processDays(days)
+
+function processData(days)
     local function newDailyData()
         local tmp = {}
         tmp.CreateDay = today--os.date("%x", os.time())
@@ -17,6 +21,7 @@ function processDays(days)
         -- table.insert(tmp.Days30,today)
         return tmp
     end
+
 
     if days == nil then
         days = newDailyData()
@@ -37,12 +42,11 @@ function saveDataToDB(playerId,key)
 end
 
 local dicDays = {}
-local dicDuration = {}
 
 Players.PlayerAdded:Connect(function(player)
-    local data = getDataFromDB(player.UserId,keyDays)
-    data = processDays(data)
-    saveDataToDB(player.UserId,keyDays)
+    local data = getDataFromDB(player.UserId,dbKeyDays)
+    data = processData(data)
+    saveDataToDB(player.UserId,dbKeyDays)
     dicDays[player] = data
 end)
 
@@ -52,20 +56,17 @@ Players.PlayerRemoving:Connect(function(player)
 end)
 
 local currentSecond = os.time()
+
 game:GetService("RunService").Stepped:Connect(function(time, deltaTime)
     if currentSecond == time then return end
     currentSecond = time
-
-    for player, value in dicDuration do
-        dicDuration[player] = value+1
-    end
 
     --处理登录天数
     local date = os.time() / oneDaySeconds
     if today ~= date then
         today = date
         for player, data in dicDays do
-            dicDays[player] = processDays(data)
+            dicDays[player] = processData(data)
             -- task.wait(1)
         end
     end
