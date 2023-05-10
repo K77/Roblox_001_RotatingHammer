@@ -113,7 +113,7 @@ function module.goInBattle(player:Player)
             local echar = humanoid.Parent --game.Players:GetPlayerFromCharacter()
             if echar == player.Character then return end
             s_player_behave.knockback(player.Character,echar)
-            print("otherPart: ",otherPart.Name)
+            -- print("otherPart: ",otherPart.Name)
         end
         end)
 end

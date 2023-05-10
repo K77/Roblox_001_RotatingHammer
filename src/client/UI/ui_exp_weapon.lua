@@ -32,6 +32,15 @@ function module.Show(flag:boolean, ...)
 
         local Btn_buy_ring = ui:WaitForChild("ImageBack"):WaitForChild("ImageLabel"):WaitForChild("TextButton") :: TextButton
         local money = Player:WaitForChild("leaderstats"):WaitForChild("coins").Value
+        if money > ConfServerGlobal.equip[itemId].needExp then
+            Btn_buy_ring.Text = "EQUIP"
+        else
+            Btn_buy_ring.Text = "Battle"
+            -- local MarketplaceService = game:GetService("MarketplaceService")
+            -- local Players = game:GetService("Players")
+            -- local Player = Players.LocalPlayer
+            -- MarketplaceService:PromptProductPurchase(Player,itemId)
+        end
         -- local itemCount = c_data_bag.GetItemCount(itemId)
         -- if itemCount>0 then
         --     Btn_buy_ring.Text = "EQUIP"
@@ -43,7 +52,7 @@ function module.Show(flag:boolean, ...)
             if money > ConfServerGlobal.equip[itemId].needExp then
                 c2s_equip:FireServer(itemId)
             else
-                return
+                -- return
                 -- local MarketplaceService = game:GetService("MarketplaceService")
                 -- local Players = game:GetService("Players")
                 -- local Player = Players.LocalPlayer
