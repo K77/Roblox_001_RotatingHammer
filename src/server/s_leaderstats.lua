@@ -43,7 +43,7 @@ players.PlayerAdded:Connect(function(player)
 end)
 
 local refreshInterval = 60
-local tmpDuration = 0
+local tmpDuration = refreshInterval
 local topTen 
 local function refresh()
     local isAscending = false
