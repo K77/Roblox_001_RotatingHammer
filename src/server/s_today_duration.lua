@@ -3,6 +3,8 @@ local ConfServerGlobal= require(game:GetService("ReplicatedStorage").globalConf.
 local PlayerDataStore = game:GetService("DataStoreService"):GetDataStore("s_today_duration")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+
+
 local keyDuration = {}
 for key, value in ConfServerGlobal.duration do
     table.insert(keyDuration,key)
@@ -10,9 +12,10 @@ end
 table.sort(keyDuration)
 
 local oneDaySeconds = 60*60*25
-local currentSecond = os.time()
-local today = currentSecond / oneDaySeconds
+local currentSecond  = 0-- = os.time()
+local today = math.floor( os.time() / oneDaySeconds)
 local dicDuration = {}
+
 
 local function savePlayerDataToDataStore(player)
 	local playerId = player.UserId
@@ -49,9 +52,11 @@ function NewData(player)
     tmp.loginDate = today
     tmp.rewards = {}
     for i = 1, #keyDuration, 1 do
-        tmp.rewards[keyDuration[i]] = false
+        table.insert(tmp.rewards,keyDuration[i])
+        -- tmp.rewards[keyDuration[i]] = false
     end
     dicDuration[player] = tmp
+    return tmp
 end
 
 game:GetService("Players").PlayerAdded:Connect(function(player)
@@ -62,6 +67,7 @@ game:GetService("Players").PlayerAdded:Connect(function(player)
             data = NewData(player)
         end
     end
+    dicDuration[player] = data
 end)
 
 game:GetService("Players").PlayerRemoving:Connect(function(player)
@@ -70,35 +76,41 @@ end)
 
 game:GetService("RunService").Stepped:Connect(function(time, deltaTime)
     if currentSecond == time then return end
+    
     currentSecond = time
-    for player, value in dicDuration do
-        dicDuration[player].duration += 1
+    local todayTmp = math.floor( os.time() / oneDaySeconds)
+    if todayTmp~= today then
+        
+        for player, value in dicDuration do
+            NewData(player)
+        end
+    else
+        for player, value in dicDuration do
+            dicDuration[player].duration += 1
+        end
     end
+    today = todayTmp
+    -- print("today:", today)
+
 end)
 
-local function getdurationReward(player,value)
-    local result = 0
-    while true do
-        local data = dicDuration[player]
-        if data == nil then 
-            result = 1
-            break
-        end
-        if data.rewards[value] == false then
-            data.rewards[value] = true
-            --todo 发送对应奖励
-            break
-        else
-            result = 2
+
+local c2s_get_duration_info = game:GetService("ReplicatedStorage")._RojoShare.Remote.c2s_get_duration_info
+local c2s_get_duration_reward = game:GetService("ReplicatedStorage")._RojoShare.Remote.c2s_get_duration_reward
+c2s_get_duration_info.OnServerInvoke = function(player)
+	return dicDuration[player]
+end
+c2s_get_duration_reward.OnServerInvoke = function(player,duration)
+    local data = dicDuration[player].rewards
+    for i = 1, #data, 1 do
+        if data[i] == duration then
+            table.remove(data,i)
+            if ConfServerGlobal.duration[duration] then
+                player.leaderstats.coins.Value += ConfServerGlobal.duration[duration]
+            end
             break
         end
     end
-    return result
+	return dicDuration[player]
 end
-local C2S_Func_GetAllBag = ReplicatedStorage._RojoShare.Remote.c2s_duration_reward
-
-C2S_Func_GetAllBag.OnServerInvoke = function(player,rewardsId)
-    return getdurationReward(player,rewardsId)
-end
-
 return module

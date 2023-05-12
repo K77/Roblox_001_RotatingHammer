@@ -62,7 +62,9 @@ function module.resetAnimation(player : Player)
 end
 
 
-
+local function hitBack(char)
+	
+end
 
 local hurting = {}
 function module.knockback(pchar,echar)
@@ -79,8 +81,11 @@ function module.knockback(pchar,echar)
 				if hurting[ePlayer] then return end
 				hurting[ePlayer] = true
 			end
+			if echar:FindFirstChild("forceField") then
+				return
+			end
 
-			echar.Humanoid:TakeDamage(ConfServerGlobal.hitDamage)
+			-- echar.Humanoid:TakeDamage(ConfServerGlobal.hitDamage)
 
 			local player = Players:GetPlayerFromCharacter(pchar)
 			local coins = player:WaitForChild("leaderstats"):WaitForChild("coins") :: IntValue
@@ -98,17 +103,35 @@ function module.knockback(pchar,echar)
 			local forceField = Instance.new("ForceField",echar)
 			forceField.Name = "forceField"
 			forceField.Visible = true
+			game.Debris:AddItem(forceField,2)
 			print("echar.Humanoid.Health: ",echar.Humanoid.Health)
 			
-			
-			-- coins.Value = coins.Value+1
+			echar.Humanoid.PlatformStand = true
 
 			local dir = (eHrp.Position -pHrp.Position).Unit
-			local force = Instance.new("BodyVelocity", eHrp)
-			force.MaxForce = Vector3.one * math.huge
-			force.Velocity = (dir ).Unit * ConfServerGlobal.hitPower
-			game.Debris:AddItem(force,0.25)
-			game.Debris:AddItem(forceField,2)
+			local att = Instance.new("Attachment",eHrp)
+			local force = Instance.new("VectorForce",eHrp)
+			local humanoid = echar:FindFirstChild("Humanoid")
+			force.Attachment0 = att
+			force.Force = (dir + Vector3.new(0,1,0)).Unit * 5000
+			force.RelativeTo = Enum.ActuatorRelativeTo.World
+			print("add force")
+
+			-- local rot = Instance.new("AngularVelocity",eHrp)
+			-- rot.Attachment0 = att
+			-- rot.AngularVelocity = Vector3.new(1,1,1)*40
+			-- rot.RelativeTo = Enum.ActuatorRelativeTo.Attachment0
+			game.Debris:AddItem(force, .2)
+			-- game.Debris:AddItem(rot, .1)
+			game.Debris:AddItem(att, .2)
+			-- coins.Value = coins.Value+1
+
+			-- local dir = (eHrp.Position -pHrp.Position).Unit
+			-- local force = Instance.new("BodyVelocity", eHrp)
+			-- force.MaxForce = Vector3.one * math.huge
+			-- force.Velocity = (dir ).Unit * ConfServerGlobal.hitPower
+			-- game.Debris:AddItem(force,0.25)
+
 			-- echar.Humanoid.PlatformStand = true
 			-- local att = Instance.new("Attachment",eHrp)
 			-- local force = Instance.new("VectorForce",eHrp)
@@ -133,9 +156,13 @@ function module.knockback(pchar,echar)
             -- local kickAnimationTrack = animator:LoadAnimation(kickAnimation)
 			-- kickAnimationTrack:Play()
 			
+			
 
-            task.wait(2)
-
+            task.wait(3)
+			if echar then
+				echar.Humanoid.PlatformStand = false
+			end
+			
 			if ePlayer then hurting[ePlayer] = nil end
 			
 			-- echar.Humanoid.PlatformStand = false

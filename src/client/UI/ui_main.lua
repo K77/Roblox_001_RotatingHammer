@@ -1,5 +1,6 @@
 local module = {}
 local ui = game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui'):WaitForChild("UI_Root",20):WaitForChild("MainUI")
+local ui_duiration = require(script.Parent.ui_duiration)
 local Players = game:GetService("Players")
 local Player = game:GetService("Players").LocalPlayer
 local SocialService = game:GetService("SocialService")
@@ -27,7 +28,11 @@ btnInvite.MouseButton1Click:Connect(function()
     end
 end)
 
-
+local btnDuration = ui:WaitForChild("Rewards"):WaitForChild("Click") :: GuiButton
+btnDuration.MouseButton1Click:Connect(function()
+    print("btnDuration.MouseButton1Click")
+    ui_duiration.Show(true)
+end)
 
 labelMoney.Text = money.Value
 local btnChange = ui:WaitForChild("ChangeButton") :: GuiButton
