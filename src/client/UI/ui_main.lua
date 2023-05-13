@@ -65,7 +65,21 @@ run.Stepped:Connect(function(time, deltaTime)
     uiTopcentre:WaitForChild("RotatingSpeed").Text = Player:WaitForChild("countRotate").Value
     uiTopcentre:WaitForChild("WeaponScale").Text = Player:WaitForChild("countWeapon").Value
 
-    lableDuration.Text = math.floor(ui_duiration.info.duration)
+    local seconds = math.floor(ui_duiration.info.duration)
+    local minute = math.floor(seconds / 60)
+    seconds = seconds - minute*60
+    local hour = math.floor(minute/60)
+    minute = minute - hour * 60
+    
+    if minute < 10 then
+        minute = "0"..minute
+    end
+    if seconds < 10 then
+        seconds = "0"..seconds
+    end
+
+
+    lableDuration.Text = hour .. ":"..minute..":"..seconds
     -- print("asdfasdfads")
 end)
 
