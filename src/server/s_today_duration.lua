@@ -75,6 +75,7 @@ game:GetService("Players").PlayerRemoving:Connect(function(player)
 end)
 
 game:GetService("RunService").Stepped:Connect(function(time, deltaTime)
+    time = math.floor(time)
     if currentSecond == time then return end
     
     currentSecond = time

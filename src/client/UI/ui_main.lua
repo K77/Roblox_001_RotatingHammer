@@ -33,6 +33,9 @@ btnDuration.MouseButton1Click:Connect(function()
     print("btnDuration.MouseButton1Click")
     ui_duiration.Show(true)
 end)
+local lableDuration = ui:WaitForChild("Rewards"):WaitForChild("TextLabel") :: TextLabel
+
+
 
 labelMoney.Text = money.Value
 local btnChange = ui:WaitForChild("ChangeButton") :: GuiButton
@@ -61,6 +64,9 @@ run.Stepped:Connect(function(time, deltaTime)
     uiTopcentre:WaitForChild("MoveSpeed").Text = Player:WaitForChild("countShoe").Value
     uiTopcentre:WaitForChild("RotatingSpeed").Text = Player:WaitForChild("countRotate").Value
     uiTopcentre:WaitForChild("WeaponScale").Text = Player:WaitForChild("countWeapon").Value
+
+    lableDuration.Text = math.floor(ui_duiration.info.duration)
+    -- print("asdfasdfads")
 end)
 
 

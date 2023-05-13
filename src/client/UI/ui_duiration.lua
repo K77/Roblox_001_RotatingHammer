@@ -78,7 +78,7 @@ function module.Show(flag:boolean, ...)
 end
 
 RunService.Stepped:Connect(function(time, deltaTime)
-    module.info.duration -= deltaTime
+    module.info.duration += deltaTime
     if not module.isShow then return end
     setBtnText()
 end)
